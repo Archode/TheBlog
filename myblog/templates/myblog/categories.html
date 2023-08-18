@@ -1,0 +1,36 @@
+{% extends 'myblog/base.html' %} 
+
+{% block content %}
+
+{% if category_post %}
+
+<div class="container">
+    
+    <h3> {{ cats }} </h3>
+    {% for post in category_post %}
+    <div class="container">
+        <div class="card mb-3 my-3 mx-auto" style="max-width: 900px">
+        <div>
+            <div class="card-body">
+            <h5 class="card-title">
+                <a href="{% url 'article-detail' post.pk %}"> {{post.title}} </a>
+            </h5>
+            <a href="{% url 'update_post' post.pk %}"> Edit </a> &nbsp &nbsp
+            <a href="{% url 'delete_post' post.pk %}"> Delete </a> <br />
+            {{post.author.first_name}} {{post.author.last_name}}
+            <p class="card-text">{{post.description | slice:200 | safe}} ...</p>
+        
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+  
+</div>
+{% else %}
+    <h2>
+        sorry this page doesnot exits
+    </h2>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'myblog/base.html' %} {% block content %}
+
+<div class="container">
+  {% for post in object_list %}
+
+    <div class="container">
+      <div class="card mb-3 my-3 mx-auto" style="max-width: 900px">
+        <div>
+          <div class="card-body">
+
+            <h5 class="card-title">
+              <a href="{% url 'article-detail' post.pk %}"> {{post.title}} </a>
+            </h5>
+
+            {% if user.is_authenticated %}
+              {% if user.id == post.author.id %}
+                <a href="{% url 'update_post' post.pk %}"> Edit </a> &nbsp &nbsp
+                <a href="{% url 'delete_post' post.pk %}"> Delete </a> <br />
+              {% endif %}
+            {% endif %}
+
+            By: {{post.author.first_name}} {{post.author.last_name}}
+
+            <p class="card-text">{{ post.description | slice:200 | safe }} ...</p>
+            <br>
+            <p>category : <a href="{% url 'category' post.category|slugify %}"> {{post.category}} </a></p>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endfor %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'myblog/base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+{% if user.is_authenticated %}
+
+    {% if user.id == post.author.id %}
+        <h2>Update Blog Post </h2>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.as_p}}
+            <button class="btn btn-primary"> Update </button>
+        </form>
+    {% else %}
+        You are not allowed here! SignIn and go to your page.
+    {% endif %}
+
+{% endif %}
+
+</div>
+
+{% endblock content %}

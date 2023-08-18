@@ -1,0 +1,26 @@
+{% extends 'myblog/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    {% if user.is_authenticated %}
+
+        {% if user.id == post.author.id %}
+            <h2>Delete Blog Post</h2>
+            <br>
+            <h5 class="card-title">{{post.title}}  </h5>
+            <br>
+            <form method="POST" action="">
+                {% csrf_token %}
+                Are You Sure ? <br> <br>
+                <button class="btn btn-primary"> Delete </button>
+            </form>
+        {% else %}
+            You are not allowed here! SignIn and go to your page.
+        {% endif %}
+    
+    {% endif %}
+
+</div>
+
+{% endblock content %}
